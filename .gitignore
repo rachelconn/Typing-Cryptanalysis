@@ -1,0 +1,6 @@
+# Virtual environments
+env/
+
+# Dataset files
+audio/
+labels/
