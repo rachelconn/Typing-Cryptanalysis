@@ -1,7 +1,8 @@
 # Installation
 1. Download python 3.8 or higher (tested with 3.8.5)
 2. If not running on Windows, follow the instructions for setting up PyAudio [here](https://pypi.org/project/PyAudio/)
-2. Run `pip install -r requirements.txt`
+3. If you plan on recording training data, run `pip install -r recording_requirements.txt`
+4. If you plan on using ML models, run `pip install -r ml_requirements.txt`
 
 # Collecting labeled data
 After installation, run `record_training_data.py` and start typing to create labeled typing data.
