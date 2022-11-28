@@ -30,8 +30,7 @@ print(transcription)
 target_transcription = "A MAN SAID TO THE UNIVERSE I EXIST"
 
 # encode labels
-with processor.as_target_processor():
-  labels = processor(target_transcription, return_tensors="pt").input_ids
+labels = processor(text=target_transcription, return_tensors="pt").input_ids
 
 # compute loss by passing labels
 loss = model(input_values, labels=labels).loss

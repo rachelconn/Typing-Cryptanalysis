@@ -10,6 +10,7 @@ audio_folder = 'audio'
 label_folder = 'labels'
 os.makedirs(audio_folder, exist_ok=True)
 os.makedirs(label_folder, exist_ok=True)
+filename = datetime.now().strftime('%Y%m%d%H%M%S')
 
 # Record audio
 p = pyaudio.PyAudio()
@@ -18,7 +19,7 @@ sampwidth = p.get_sample_size(pyaudio.paInt16)
 framerate = 44100
 frames_per_buffer = 1024
 start_time = datetime.now().timestamp()
-wf = wave.open(os.path.join(audio_folder, f'{start_time:.6f}.wav'), 'wb')
+wf = wave.open(os.path.join(audio_folder, f'{filename}.wav'), 'wb')
 wf.setnchannels(nchannels)
 wf.setsampwidth(sampwidth)
 wf.setframerate(framerate)
@@ -36,7 +37,6 @@ audio_stream = p.open(
 audio_stream.start_stream()
 
 # Record all keyboard presses with a timestamp
-filename = datetime.now().strftime('%Y%m%d%H%M%S')
 keys_pressed = set()
 with open(os.path.join(label_folder, filename), 'w') as label_file:
     def handle_event(e: keyboard.KeyboardEvent):

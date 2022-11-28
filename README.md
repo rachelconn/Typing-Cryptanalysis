@@ -5,7 +5,7 @@
 4. If you plan on using ML models, run `pip install -r ml_requirements.txt`
 
 # Collecting labeled data
-After installation, run `record_training_data.py` and start typing to create labeled typing data.
+After installation, run `python record_training_data.py` and start typing to create labeled typing data.
 Your default microphone will be used to record, so make sure it's set up correctly before starting a long recording session.
 
 # Data format
