@@ -46,7 +46,7 @@ with open(os.path.join(label_folder, filename), 'w') as label_file:
         elif e.event_type == keyboard.KEY_DOWN and e.name not in keys_pressed:
             keys_pressed.add(e.name)
             normalized_time = e.time - start_time
-            label_file.write(f'{normalized_time} {e.name}\n')
+            label_file.write(f'{normalized_time} {e.scan_code}\n')
 
     keyboard.hook(handle_event)
 
