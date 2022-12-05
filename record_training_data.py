@@ -41,10 +41,10 @@ keys_pressed = set()
 with open(os.path.join(label_folder, filename), 'w') as label_file:
     def handle_event(e: keyboard.KeyboardEvent):
         if e.event_type == keyboard.KEY_UP:
-            keys_pressed.discard(e.name)
+            keys_pressed.discard(e.scan_code)
         # Don't write to file unless this is a new keypress
-        elif e.event_type == keyboard.KEY_DOWN and e.name not in keys_pressed:
-            keys_pressed.add(e.name)
+        elif e.event_type == keyboard.KEY_DOWN and e.scan_code not in keys_pressed:
+            keys_pressed.add(e.scan_code)
             normalized_time = e.time - start_time
             label_file.write(f'{normalized_time} {e.scan_code}\n')
 
