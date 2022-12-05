@@ -2,11 +2,15 @@
 Creates vocab.json, a json object mapping vocab tokens to their class indices.
 Wav2Vec2CTCTokenizer takes in this vocab file as an argument to determine what tokens are in the model's vocabulary.
 """
+# TODO: rewrite to use key names instead of scancodes
 import json
 import os
+from pathlib import Path
 
-output_filename = 'vocab.json'
-label_file_directory = 'labels'
+base_directory = Path(__file__).resolve().parent.parent
+
+output_filename = base_directory / 'vocab.json'
+label_file_directory = base_directory / 'labels'
 
 # Collect keystrokes from all label files
 keystrokes = set()

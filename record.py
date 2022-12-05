@@ -1,15 +1,17 @@
 from datetime import datetime
 import keyboard
 import os
+from pathlib import Path
 import pyaudio
 import time
 import wave
 
 # Create label folder
-audio_folder = 'audio'
-label_folder = 'labels'
-os.makedirs(audio_folder, exist_ok=True)
-os.makedirs(label_folder, exist_ok=True)
+base_directory = Path(__file__).resolve().parent
+audio_folder = base_directory / 'audio'
+label_folder = base_directory / 'labels'
+audio_folder.mkdir(exist_ok=True)
+label_folder.mkdir(exist_ok=True)
 filename = datetime.now().strftime('%Y%m%d%H%M%S')
 
 # Record audio

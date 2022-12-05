@@ -10,7 +10,7 @@ MIN_CLIP_LENGTH = 8_000
 MAX_CLIP_LENGTH = 20_000
 
 # Determine paths for I/O
-base_directory = Path(__file__).resolve().parent
+base_directory = Path(__file__).resolve().parent.parent
 input_audio_directory = base_directory / 'audio'
 input_label_directory = base_directory / 'labels'
 output_base_directory = base_directory / 'dataset'
@@ -40,6 +40,7 @@ for child in input_label_directory.iterdir():
     keys = []
     with child.open() as input_label_file:
         for line in input_label_file:
+            # TODO: need to translate key names to class values!
             timestamp, key = line.rstrip().split(' ')
             timestamp = int(float(timestamp) * 1000) # Convert to milliseconds
             key = int(key)
