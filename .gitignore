@@ -2,5 +2,6 @@
 *env/
 
 # Dataset files
+dataset/
 audio/
 labels/
