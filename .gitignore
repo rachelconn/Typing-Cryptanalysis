@@ -5,3 +5,9 @@
 dataset/
 audio/
 labels/
+
+# wandb logs
+wandb/
+
+# Trained models
+*/pytorch_model.bin
