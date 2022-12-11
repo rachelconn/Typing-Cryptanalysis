@@ -1,5 +1,7 @@
 from pathlib import Path
 import tempfile
+import os
+import subprocess
 
 from pydub import AudioSegment
 from pytube import Playlist
@@ -9,7 +11,7 @@ clip_length = 20_000
 
 # Output directory
 base_directory = Path(__file__).resolve().parent.parent
-output_directory = base_directory / 'dataset' / 'unlabeled'
+output_directory = base_directory / 'dataset' / 'unlabeled' / 'audio'
 output_directory.mkdir(parents=True, exist_ok=True)
 
 # Download each video in dataset playlist
@@ -29,16 +31,10 @@ with tempfile.TemporaryDirectory() as download_directory:
                 best_abr = abr
 
         # Download to temp folder
-        downloaded_video_path = best_stream.download(download_directory)
-
+        video_download_path = best_stream.download(download_directory, f'{video_idx:03}.mp4')
         # Create clips from video
         print('    Creating clips...')
-        audio = AudioSegment.from_file(downloaded_video_path).set_frame_rate(16_000)
-        for clip_idx, clip_start in enumerate(range(0, len(audio), clip_length), 1):
-            clip_end = min(clip_start + clip_length, len(audio))
-            clip = audio[clip_start:clip_end]
-            clip.export(
-                output_directory / f'{video_idx:03}_{clip_idx:04}.wav',
-                format='wav',
-            )
+        clip_path = output_directory / f'{video_idx:03}_%04d.wav'
+        create_clip_command = f'ffmpeg -i {video_download_path} -map 0 -segment_time 00:00:20 -f segment -reset_timestamps 1 -ar 16000 {clip_path}'.split()
+        subprocess.run(create_clip_command)
         print('    Finished processing video.')
