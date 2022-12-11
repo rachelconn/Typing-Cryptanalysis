@@ -3,7 +3,7 @@
 # --dataset_config_names clean clean other \
 # --dataset_split_names train.100 train.360 train.500 \
 
-accelerate launch pretrain_demo.py \
+accelerate launch pretrain.py \
 	--dataset_name="dataset/unlabeled" \
 	--model_name_or_path="patrickvonplaten/wav2vec2-base-v2" \
 	--output_dir="./wav2vec2-pretrained-demo" \
