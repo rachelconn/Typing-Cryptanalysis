@@ -20,11 +20,12 @@ Run utils/download_unlabeled_data.py to create the `dataset/unlabeled` folder. T
 
 # Creating files needed for fine-tuning
 1. Once labeled data has been collected to the `audio` and `labels` folders, run `get_dataset_composition.py` to create `dict.ltr.txt`, a file used to determine the weights for each class during training.
-2. Run `get_dataset_composition` to create `.wrd` and `.ltr` files in the `dataset` folder. These files are used by fairseq as labels.
+2. Follow the instructions in the fairseq repo for generations a tsv file.
+2. Run `python utils/create_labels $tsv_path` to create `.wrd` and `.ltr` files in the `dataset` folder. These files are used by fairseq as labels.
 3. Place `dict.ltr.txt`, `train.ltr`, `train.wrd`, `valid.ltr`, and `valid.wrd` into the manifest folder described in the modified fairseq repo.
 
 # Pretraining and training
 For model training, follow the steps in the modified fairseq repo.
 
 # Results visualization
-Run `utils.visualize_train_log.py ...${.log files}`
+Run `utils.visualize_train_log.py $.log_file_1, $.log_file_2, ...` with any number of log paths >=1.
