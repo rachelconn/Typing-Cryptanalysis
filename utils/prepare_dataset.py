@@ -4,6 +4,7 @@ so that they're more fit for training.
 """
 from pathlib import Path
 from pydub import AudioSegment
+from character_classes import get_character_class
 
 # Constants determining output clip length (in ms)
 MIN_CLIP_LENGTH = 8_000
@@ -22,6 +23,9 @@ output_audio_directory.mkdir(parents=True, exist_ok=True)
 output_label_directory.mkdir(exist_ok=True)
 
 def save_clip(source_file, clip_number, clip, clip_keys):
+    # Skip saving if clip is too short
+    if clip.duration_seconds < 5 or clip.duration_seconds > 20:
+        return
     output_audio_file = output_audio_directory / f'{source_file.name}_{clip_number:04}.wav'
     output_label_file = output_label_directory / f'{source_file.name}_{clip_number:04}.txt'
     # Export audio
@@ -41,9 +45,9 @@ for child in input_label_directory.iterdir():
     with child.open() as input_label_file:
         for line in input_label_file:
             # TODO: need to translate key names to class values!
-            timestamp, key = line.rstrip().split(' ')
+            timestamp, _scancode, character = line.rstrip().split(' ')
             timestamp = int(float(timestamp) * 1000) # Convert to milliseconds
-            key = int(key)
+            key = get_character_class(character)
             timestamps.append(timestamp)
             keys.append(key)
 
