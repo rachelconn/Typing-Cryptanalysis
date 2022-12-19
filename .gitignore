@@ -11,3 +11,5 @@ wandb/
 
 # Trained models
 */pytorch_model.bin
+
+*.pyc
