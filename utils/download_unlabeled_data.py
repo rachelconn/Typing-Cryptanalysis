@@ -35,6 +35,6 @@ with tempfile.TemporaryDirectory() as download_directory:
         # Create clips from video
         print('    Creating clips...')
         clip_path = output_directory / f'{video_idx:03}_%04d.wav'
-        create_clip_command = f'ffmpeg -i {video_download_path} -map 0 -segment_time 00:00:20 -f segment -reset_timestamps 1 -ar 16000 {clip_path}'.split()
+        create_clip_command = f'ffmpeg -i {video_download_path} -map 0 -segment_time 00:00:20 -f segment -reset_timestamps 1 -ar 16000 -ac 1 {clip_path}'.split()
         subprocess.run(create_clip_command)
         print('    Finished processing video.')
