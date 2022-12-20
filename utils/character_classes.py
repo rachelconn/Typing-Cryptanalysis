@@ -191,8 +191,21 @@ character_class_idx_reduced.update(
     }
 )
 
+character_for_idx = {v: k for k, v in character_class_idx_reduced.items()}
+
 def get_character_class(character: str) -> int:
     if character == 'space':
         return ord('|')
     # Add 0x20 to skip utf-8 control characters and space
     return character_class_idx_reduced[character.lower()] + 0x21
+
+def decode(transcription: str) -> str:
+    decoded = []
+    for character in transcription:
+        if character == '|':
+            decoded.append(' ')
+        elif character == ';':
+            decoded.append('$')
+        else:
+            decoded.append(character_for_idx[ord(character) - 0x21])
+    return ''.join(decoded)
